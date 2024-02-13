@@ -1,12 +1,6 @@
 import React, { useRef } from "react";
 import { Canvas } from "@react-three/fiber";
-import {
-  Vignette,
-  EffectComposer,
-  SMAA,
-  SSAO,
-  ToneMapping,
-} from "@react-three/postprocessing";
+import { Glitch, EffectComposer, SSAO } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 import { OrbitControls, Loader } from "@react-three/drei";
 import { Rophnan } from "./components/Rophnan";
@@ -18,12 +12,12 @@ function App() {
       <Canvas shadows>
         <OrbitControls />
         <color attach="background" args={["#000000"]} />
-        <ambientLight position={[0, 0, 100]} intensity={1.5} color="#f2c96d" />
+        <ambientLight position={[0, 0, 100]} intensity={1} color="#f2c96d" />
         <pointLight
           position={[10, 10, 10]}
           decay={0}
           color="#dbd59a"
-          intensity={0.319}
+          intensity={0.3}
         />
 
         <Suspense fallback={null}>
@@ -43,6 +37,14 @@ function App() {
             scale={0.5} // scale of the ambient occlusion
             bias={0.5} // occlusion bias
           />
+          {/* <Glitch
+            delay={[1.5, 3.5]} // min and max glitch delay
+            duration={[0.2, 1.0]} // min and max glitch duration
+            strength={[0.2, 1.0]} // min and max glitch strength
+            // mode={GlitchMode.SPORADIC} // glitch mode
+            active // turn on/off the effect (switches between "mode" prop and GlitchMode.DISABLED)
+            ratio={0.85} // Threshold for strong glitches, 0 - no weak glitches, 1 - no strong glitches.
+          /> */}
         </EffectComposer>
       </Canvas>
       <Loader />
