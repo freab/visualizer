@@ -16,8 +16,8 @@ export function Rophnan(props) {
           far={1000}
           near={0.1}
           fov={40.157}
-          position={[2.061, 1.144, 16.194]}
-          rotation={[-0.025, 0.02, 0]}
+          position={[1.61, 1.144, 16.194]}
+          rotation={[-0.035, 0.02, 0.01]}
         />
         <mesh
           name="main_window"
@@ -161,7 +161,7 @@ export function Rophnan(props) {
           receiveShadow
           geometry={nodes.Cube.geometry}
           material={materials.Stones}
-          position={[0.112, -1.873, 1.236]}
+          position={[0.112, -2.873, 1.236]}
           rotation={[0, 0.031, 0]}
           scale={0.142}
         />
