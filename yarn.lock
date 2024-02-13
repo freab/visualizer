@@ -708,6 +708,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-three/postprocessing@npm:^2.16.0":
+  version: 2.16.0
+  resolution: "@react-three/postprocessing@npm:2.16.0"
+  dependencies:
+    buffer: ^6.0.3
+    maath: ^0.6.0
+    n8ao: ^1.6.6
+    postprocessing: ^6.32.1
+    three-stdlib: ^2.23.4
+  peerDependencies:
+    "@react-three/fiber": ">=8.0"
+    react: ">=18.0"
+    three: ">= 0.138.0"
+  checksum: 46ecbcf9524b7e744df8a2dd19caa8e3e209f3d72c000fd246a14f4eeeb2bf29be137026c4166efa80aa4967ecce3ead93e9a9d7fc224d3f7f7c05304e32b91e
+  languageName: node
+  linkType: hard
+
 "@types/draco3d@npm:^1.4.0":
   version: 1.4.9
   resolution: "@types/draco3d@npm:1.4.9"
@@ -1594,6 +1611,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"maath@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "maath@npm:0.6.0"
+  peerDependencies:
+    "@types/three": ">=0.144.0"
+    three: ">=0.144.0"
+  checksum: 6b8da7789f5607f77030bac5cdc50697fe81ac3bd0939883430f33340768ccf0e5528465b039d8328181bfb9e966d2ad60f694c45825b7d6be944f3f735c5023
+  languageName: node
+  linkType: hard
+
 "magic-string@npm:^0.27.0":
   version: 0.27.0
   resolution: "magic-string@npm:0.27.0"
@@ -1747,6 +1774,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"n8ao@npm:^1.6.6":
+  version: 1.8.0
+  resolution: "n8ao@npm:1.8.0"
+  peerDependencies:
+    postprocessing: ">=6.30.0"
+    three: ">=0.137"
+  checksum: 9687ba8146ea1d0d00a8bddc937591d223543cc9c16d8617da3e8bc5a083f234d6f664d439ba215f3de02ccbabe554c5d5c4fe3e106634c2f11d594a9e5668a4
+  languageName: node
+  linkType: hard
+
 "nanoid@npm:^3.3.4":
   version: 3.3.4
   resolution: "nanoid@npm:3.3.4"
@@ -1859,6 +1896,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postprocessing@npm:^6.32.1":
+  version: 6.34.3
+  resolution: "postprocessing@npm:6.34.3"
+  peerDependencies:
+    three: ">= 0.138.0 < 0.162.0"
+  checksum: 86a134bfa5c3b3716e1417872181df41ca3f0d2a34d1bdad599db32b1bd334512c8d80c59297c3e98b9427f7bd0d9028b9175e3671adb7354ce4a302cd77c071
+  languageName: node
+  linkType: hard
+
 "potpack@npm:^1.0.1":
   version: 1.0.2
   resolution: "potpack@npm:1.0.2"
@@ -1900,6 +1946,7 @@ __metadata:
   dependencies:
     "@react-three/drei": ^9.87.0
     "@react-three/fiber": ^8.14.5
+    "@react-three/postprocessing": ^2.16.0
     "@types/react": ^18.0.27
     "@types/react-dom": ^18.0.10
     "@types/three": ^0.157.0
@@ -2270,7 +2317,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three-stdlib@npm:^2.29.4":
+"three-stdlib@npm:^2.23.4, three-stdlib@npm:^2.29.4":
   version: 2.29.4
   resolution: "three-stdlib@npm:2.29.4"
   dependencies:
