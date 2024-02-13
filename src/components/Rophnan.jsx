@@ -6,7 +6,7 @@ import React, { useRef } from "react";
 import { useGLTF, PerspectiveCamera } from "@react-three/drei";
 
 export function Rophnan(props) {
-  const { nodes, materials } = useGLTF("/models/rophnan-scene.glb");
+  const { nodes, materials } = useGLTF("/models/rophnan-scene1.glb");
   return (
     <group {...props} dispose={null}>
       <group name="Scene">
@@ -190,4 +190,4 @@ export function Rophnan(props) {
   );
 }
 
-useGLTF.preload("/models/rophnan-scene.glb");
+useGLTF.preload("/models/rophnan-scene1.glb");
