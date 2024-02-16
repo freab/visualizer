@@ -6,27 +6,18 @@ import React, { useRef } from "react";
 import { useGLTF, PerspectiveCamera } from "@react-three/drei";
 
 export function Rophnan(props) {
-  const { nodes, materials } = useGLTF("/models/rophnan-scene1.glb");
+  const { nodes, materials } = useGLTF("models/rophnan-scene (2).glb");
   return (
     <group {...props} dispose={null}>
       <group name="Scene">
-        <PerspectiveCamera
-          name="Camera"
-          makeDefault={false}
-          far={1000}
-          near={0.1}
-          fov={40.157}
-          position={[1.61, 1.144, 16.194]}
-          rotation={[-0.035, 0.02, 0.01]}
-        />
         <mesh
           name="main_window"
           castShadow
           receiveShadow
           geometry={nodes.main_window.geometry}
           material={materials.Yellow}
-          position={[0.714, 2.62, -15.994]}
-          scale={[0.114, 1.634, 0.114]}
+          position={[0.7, 2.6, -16]}
+          scale={[0.1, 1.6, 0.1]}
         />
         <mesh
           name="gojo_window"
@@ -34,9 +25,9 @@ export function Rophnan(props) {
           receiveShadow
           geometry={nodes.gojo_window.geometry}
           material={materials.Yellow}
-          position={[-13.949, 2.62, -8.097]}
-          rotation={[0, 1.027, 0]}
-          scale={[0.114, 1.634, 0.114]}
+          position={[-13.9, 2.6, -8.1]}
+          rotation={[0, 1, 0]}
+          scale={[0.1, 1.6, 0.1]}
         />
         <mesh
           name="spear_window"
@@ -44,8 +35,8 @@ export function Rophnan(props) {
           receiveShadow
           geometry={nodes.spear_window.geometry}
           material={materials.Yellow}
-          position={[-9.52, 2.62, -13.105]}
-          rotation={[0, 0.641, 0]}
+          position={[-9.5, 2.6, -13.1]}
+          rotation={[0, 0.6, 0]}
         />
         <mesh
           name="shield_window"
@@ -53,8 +44,8 @@ export function Rophnan(props) {
           receiveShadow
           geometry={nodes.shield_window.geometry}
           material={materials.Yellow}
-          position={[10.442, 2.62, -12.488]}
-          rotation={[0, -0.691, 0]}
+          position={[10.4, 2.6, -12.5]}
+          rotation={[0, -0.7, 0]}
         />
         <mesh
           name="axum_window"
@@ -62,17 +53,8 @@ export function Rophnan(props) {
           receiveShadow
           geometry={nodes.axum_window.geometry}
           material={materials.Yellow}
-          position={[15.009, 2.62, -6.407]}
-          rotation={[0, -1.163, 0]}
-        />
-        <mesh
-          name="Cube007"
-          castShadow
-          receiveShadow
-          geometry={nodes.Cube007.geometry}
-          material={materials.Material}
-          position={[0.849, 2.496, 0.389]}
-          scale={22.11}
+          position={[15, 2.6, -6.4]}
+          rotation={[0, -1.2, 0]}
         />
         <mesh
           name="pillar_1"
@@ -80,8 +62,8 @@ export function Rophnan(props) {
           receiveShadow
           geometry={nodes.pillar_1.geometry}
           material={materials.Yellow}
-          position={[15.578, 3.531, 3.816]}
-          scale={[0.645, 0.659, 0.645]}
+          position={[15.6, 3.5, 3.8]}
+          scale={[0.6, 0.7, 0.6]}
         />
         <mesh
           name="pillar_2"
@@ -89,8 +71,8 @@ export function Rophnan(props) {
           receiveShadow
           geometry={nodes.pillar_2.geometry}
           material={materials.Yellow}
-          position={[15.703, 3.531, -3.187]}
-          scale={[0.645, 0.659, 0.645]}
+          position={[15.7, 3.5, -3.2]}
+          scale={[0.6, 0.7, 0.6]}
         />
         <mesh
           name="pillar_3"
@@ -98,8 +80,8 @@ export function Rophnan(props) {
           receiveShadow
           geometry={nodes.pillar_3.geometry}
           material={materials.Yellow}
-          position={[12.862, 3.531, -9.589]}
-          scale={[0.645, 0.659, 0.645]}
+          position={[12.9, 3.5, -9.6]}
+          scale={[0.6, 0.7, 0.6]}
         />
         <mesh
           name="pillar_4"
@@ -107,8 +89,8 @@ export function Rophnan(props) {
           receiveShadow
           geometry={nodes.pillar_4.geometry}
           material={materials.Yellow}
-          position={[7.541, 3.531, -14.147]}
-          scale={[0.645, 0.659, 0.645]}
+          position={[7.5, 3.5, -14.1]}
+          scale={[0.6, 0.7, 0.6]}
         />
         <mesh
           name="pillar_5"
@@ -116,8 +98,8 @@ export function Rophnan(props) {
           receiveShadow
           geometry={nodes.pillar_5.geometry}
           material={materials.Yellow}
-          position={[-6.118, 3.531, -14.837]}
-          scale={[0.645, 0.659, 0.645]}
+          position={[-6.1, 3.5, -14.8]}
+          scale={[0.6, 0.7, 0.6]}
         />
         <mesh
           name="pillar_6"
@@ -125,8 +107,8 @@ export function Rophnan(props) {
           receiveShadow
           geometry={nodes.pillar_6.geometry}
           material={materials.Yellow}
-          position={[-11.842, 3.531, -10.797]}
-          scale={[0.645, 0.659, 0.645]}
+          position={[-11.8, 3.5, -10.8]}
+          scale={[0.6, 0.7, 0.6]}
         />
         <mesh
           name="pillar_7"
@@ -134,8 +116,8 @@ export function Rophnan(props) {
           receiveShadow
           geometry={nodes.pillar_7.geometry}
           material={materials.Yellow}
-          position={[-15.328, 3.531, -4.722]}
-          scale={[0.645, 0.659, 0.645]}
+          position={[-15.3, 3.5, -4.7]}
+          scale={[0.6, 0.7, 0.6]}
         />
         <mesh
           name="pillar_8"
@@ -143,8 +125,8 @@ export function Rophnan(props) {
           receiveShadow
           geometry={nodes.pillar_8.geometry}
           material={materials.Yellow}
-          position={[-15.888, 3.531, 2.264]}
-          scale={[0.645, 0.659, 0.645]}
+          position={[-15.9, 3.5, 2.3]}
+          scale={[0.6, 0.7, 0.6]}
         />
         <mesh
           name="pillar_9"
@@ -152,8 +134,8 @@ export function Rophnan(props) {
           receiveShadow
           geometry={nodes.pillar_9.geometry}
           material={materials.Yellow}
-          position={[-13.387, 3.531, 8.808]}
-          scale={[0.645, 0.659, 0.645]}
+          position={[-13.4, 3.5, 8.8]}
+          scale={[0.6, 0.7, 0.6]}
         />
         <mesh
           name="Cube"
@@ -161,15 +143,10 @@ export function Rophnan(props) {
           receiveShadow
           geometry={nodes.Cube.geometry}
           material={materials.Stones}
-          position={[0.112, -2.873, 1.236]}
-          rotation={[0, 0.031, 0]}
-          scale={0.142}
+          position={[0.1, -3.2, 0.5]}
+          scale={0.18}
         />
-        <group
-          name="room"
-          position={[-0.011, 0.07, -0.003]}
-          scale={[15.945, 4.766, 15.945]}
-        >
+        <group name="room" position={[0, 0.1, 0]} scale={[15.9, 4.8, 15.9]}>
           <mesh
             name="Cylinder001"
             castShadow
@@ -190,4 +167,4 @@ export function Rophnan(props) {
   );
 }
 
-useGLTF.preload("/models/rophnan-scene1.glb");
+useGLTF.preload("models/rophnan-scene (2).glb");
