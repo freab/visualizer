@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { EffectComposer, SSAO } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
-import { OrbitControls, Loader } from "@react-three/drei";
+import { Stats, Loader } from "@react-three/drei";
 import { Rophnan } from "./components/Rophnan";
 import { Suspense } from "react";
 import { Sphere } from "./components/Sphere";
@@ -38,7 +38,7 @@ function App() {
           />
         </Suspense>
 
-        <EffectComposer>
+        {/* <EffectComposer>
           <SSAO
             blendFunction={BlendFunction.MULTIPLY}
             samples={30}
@@ -52,7 +52,8 @@ function App() {
             scale={0.5}
             bias={0.5}
           />
-        </EffectComposer>
+        </EffectComposer> */}
+        <Stats />
       </Canvas>
       <Loader />
     </>
