@@ -1,9 +1,7 @@
-// Sphere.js
 import React, { useRef, useEffect, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { SphereGeometry } from "three";
 import { Html } from "@react-three/drei";
-import { useControls, Leva } from "leva";
 import SoundEnableModal from "./SoundEnableModal";
 import { shaderMaterial, Text } from "@react-three/drei";
 import { vertexShader, fragmentShader } from "./shaders";
@@ -16,21 +14,20 @@ const CustomShaderMaterial = shaderMaterial(
   fragmentShader
 );
 
-export function Sphere() {
+export function Sphere({ selectedSong, setSelectedSong }) {
   const meshRef = useRef();
   const audioRef = useRef();
   const audioAnalyzerRef = useRef();
   const [isPlaying, setIsPlaying] = useState(false);
   const [isSoundEnabled, setIsSoundEnabled] = useState(false);
   const [showModal, setShowModal] = useState(true);
-  const { selectedSong, pauseButton } = useControls({
-    selectedSong: {
-      value: "ROPHNAN-KING-KUT-Ft-Tom-Beats.m4a",
-      label: "Select Song",
-      options: ["ROPHNAN-KING-KUT-Ft-Tom-Beats.m4a", "SHEGIYE _ ሸግዬ .mp3"],
-    },
-  });
   const [text, setText] = useState("KING KUT");
+  const [pauseButton, setPauseButton] = useState(false);
+  const [songs, setSongs] = useState([
+    "ROPHNAN-KING-KUT-Ft-Tom-Beats.m4a",
+    "SHEGIYE _ ሸግዬ .mp3",
+  ]);
+
   const handlePlayPause = () => {
     const playPromise = isPlaying
       ? audioRef.current.pause()
@@ -45,6 +42,11 @@ export function Sphere() {
           console.error("Audio playback error:", error);
         });
     }
+  };
+
+  const handleEnableSound = () => {
+    setIsSoundEnabled(true);
+    setShowModal(false);
   };
 
   useEffect(() => {
@@ -108,11 +110,6 @@ export function Sphere() {
     }
   });
 
-  const handleEnableSound = () => {
-    setIsSoundEnabled(true);
-    setShowModal(false);
-  };
-
   useEffect(() => {
     setIsPlaying(!pauseButton);
   }, [pauseButton]);
@@ -125,8 +122,41 @@ export function Sphere() {
     );
   }, [selectedSong]);
 
+  const handleSongChange = (event) => {
+    const selectedSong = event.target.value;
+    setSelectedSong(selectedSong);
+  };
+
   return (
     <group>
+      <Html position={[-1.3, -2.7, 0]}>
+        <select
+          value={selectedSong}
+          onChange={handleSongChange}
+          style={{
+            backgroundColor: "#3498db",
+            color: "#fff",
+            padding: "8px",
+            borderRadius: "4px",
+            border: "none",
+            cursor: "pointer",
+            outline: "none",
+          }}
+        >
+          {songs.map((song) => (
+            <option
+              key={song}
+              value={song}
+              style={{
+                backgroundColor: "#3498db",
+                color: "#fff",
+              }}
+            >
+              {song}
+            </option>
+          ))}
+        </select>
+      </Html>
       <mesh
         ref={meshRef}
         name="Sphere"
@@ -148,35 +178,12 @@ export function Sphere() {
       )}
       <Text
         scale={[1.5, 1.5, 2]}
-        color="white" // default
-        anchorX="center" // default
-        anchorY="middle" // default
+        color="white"
+        anchorX="center"
+        anchorY="middle"
       >
         {text}
       </Text>
-      <Html position={[0, 2, 0]}>
-        <div style={{ position: "absolute", top: 10, left: 10 }}>
-          {isPlaying ? (
-            <button onClick={handlePlayPause}>Pause</button>
-          ) : (
-            <button onClick={handlePlayPause}>Play</button>
-          )}
-          <Leva />
-          <Html>
-            <div
-              style={{
-                position: "absolute",
-                top: 30,
-                left: 0,
-                color: "#fff",
-                fontSize: "0.8em",
-              }}
-            >
-              {selectedSong}
-            </div>
-          </Html>
-        </div>
-      </Html>
 
       <Html position={[-1, -3.8, 0]}>
         <div
