@@ -1,14 +1,19 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { SphereGeometry } from "three";
-import { Html } from "@react-three/drei";
+import { Html, Wireframe } from "@react-three/drei";
 import SoundEnableModal from "./SoundEnableModal";
 import { shaderMaterial, Text } from "@react-three/drei";
 import { vertexShader, fragmentShader } from "./shaders";
 
-const CustomShaderMaterial = shaderMaterial(
+const ShaderMaterial = shaderMaterial(
   {
     time: 0,
+    averageFrequency: { value: 0.0 },
+    beat: { value: 0.0 },
+    amplitude: { value: 0.0 },
+    pitch: { value: 0.0 },
+    wireframe: true,
   },
   vertexShader,
   fragmentShader
@@ -94,18 +99,37 @@ export function Sphere({ selectedSong, setSelectedSong }) {
       const dataArray = new Uint8Array(
         audioAnalyzerRef.current.frequencyBinCount
       );
+
       audioAnalyzerRef.current.getByteFrequencyData(dataArray);
-      const average =
+
+      const averageFrequency =
         dataArray.reduce((acc, value) => acc + value, 0) / dataArray.length;
 
-      meshRef.current.scale.set(
-        1 + average / 200,
-        1 + average / 200,
-        1 + average / 200
+      const beatThreshold = 150;
+      const beat = dataArray.filter((value) => value > beatThreshold).length;
+
+      const amplitude =
+        dataArray.reduce((acc, value) => acc + value, 0) / dataArray.length;
+
+      const pitch = getPitch(
+        dataArray,
+        audioAnalyzerRef.current.frequencyBinCount
       );
 
+      // meshRef.current.scale.set(
+      //   1 + averageFrequency / 200,
+      //   1 + averageFrequency / 200,
+      //   1 + averageFrequency / 200
+      // );
+
+      // Update shader material uniforms
       if (meshRef.current.material.uniforms) {
         meshRef.current.material.uniforms.time.value = clock.elapsedTime;
+        meshRef.current.material.uniforms.averageFrequency.value =
+          averageFrequency;
+        meshRef.current.material.uniforms.beat.value = beat;
+        meshRef.current.material.uniforms.amplitude.value = amplitude;
+        meshRef.current.material.uniforms.pitch.value = pitch;
       }
     }
   });
@@ -127,20 +151,32 @@ export function Sphere({ selectedSong, setSelectedSong }) {
     setSelectedSong(selectedSong);
   };
 
+  function getPitch(dataArray, binCount) {
+    // Use the index of the maximum value as the pitch
+    const maxIndex = dataArray.indexOf(Math.max(...dataArray));
+    const frequency =
+      ((maxIndex / binCount) * audioAnalyzerRef.current.context.sampleRate) / 2;
+
+    return frequency;
+  }
+
   return (
     <group>
-      <Html position={[-1.3, -2.7, 0]}>
+      <Html position={[-1.3, -2, 0]}>
         <select
           value={selectedSong}
           onChange={handleSongChange}
           style={{
-            backgroundColor: "#3498db",
+            backgroundColor: "#1DB954",
             color: "#fff",
             padding: "8px",
             borderRadius: "4px",
             border: "none",
             cursor: "pointer",
             outline: "none",
+            fontFamily: "inherit",
+            fontSize: "14px",
+            fontWeight: "bold",
           }}
         >
           {songs.map((song) => (
@@ -148,8 +184,11 @@ export function Sphere({ selectedSong, setSelectedSong }) {
               key={song}
               value={song}
               style={{
-                backgroundColor: "#3498db",
+                backgroundColor: "#1DB954",
                 color: "#fff",
+                fontFamily: "inherit",
+                fontSize: "14px",
+                fontWeight: "bold",
               }}
             >
               {song}
@@ -163,7 +202,7 @@ export function Sphere({ selectedSong, setSelectedSong }) {
         castShadow
         receiveShadow
         geometry={new SphereGeometry(1, 32, 32)}
-        material={new CustomShaderMaterial({ Wireframe: true })}
+        material={new ShaderMaterial()}
         position={[0.1, 1.2, 0.5]}
         scale={0.3}
       />
@@ -177,7 +216,8 @@ export function Sphere({ selectedSong, setSelectedSong }) {
         </Html>
       )}
       <Text
-        scale={[1.5, 1.5, 2]}
+        scale={[1.5, 1.5, 1.5]}
+        position={[0.1, 0.2, -2.5]}
         color="white"
         anchorX="center"
         anchorY="middle"
@@ -185,7 +225,7 @@ export function Sphere({ selectedSong, setSelectedSong }) {
         {text}
       </Text>
 
-      <Html position={[-1, -3.8, 0]}>
+      <Html position={[-1, -3, 0]}>
         <div
           style={{
             position: "absolute",
@@ -198,12 +238,15 @@ export function Sphere({ selectedSong, setSelectedSong }) {
           <button
             onClick={handlePlayPause}
             style={{
-              backgroundColor: "#3498db",
+              backgroundColor: "#1DB954",
               color: "#fff",
               padding: "12px 16px",
               borderRadius: "4px",
               border: "none",
               cursor: "pointer",
+              fontFamily: "inherit",
+              fontSize: "14px",
+              fontWeight: "bold",
             }}
           >
             {isPlaying ? "Pause" : "Play"}
@@ -211,12 +254,15 @@ export function Sphere({ selectedSong, setSelectedSong }) {
           <button
             onClick={() => audioRef.current.play()}
             style={{
-              backgroundColor: "#3498db",
+              backgroundColor: "#1DB954",
               color: "#fff",
               padding: "12px 16px",
               borderRadius: "4px",
               border: "none",
               cursor: "pointer",
+              fontFamily: "inherit",
+              fontSize: "14px",
+              fontWeight: "bold",
             }}
           >
             Play
@@ -224,12 +270,15 @@ export function Sphere({ selectedSong, setSelectedSong }) {
           <button
             onClick={() => (audioRef.current.currentTime = 0)}
             style={{
-              backgroundColor: "#3498db",
+              backgroundColor: "#1DB954",
               color: "#fff",
               padding: "12px 16px",
               borderRadius: "4px",
               border: "none",
               cursor: "pointer",
+              fontFamily: "inherit",
+              fontSize: "14px",
+              fontWeight: "bold",
             }}
           >
             Replay
