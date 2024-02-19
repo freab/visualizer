@@ -170,11 +170,34 @@ void main() {
 `;
 
 export const fragmentShader = `
-  varying vec3 vNormal;
+precision mediump float;
 
-  void main() {
-   
-   
-    gl_FragColor = vec4(vNormal, 1.0);
-  }
+uniform float time;
+uniform float beat; // Range [0, 1], representing the beat intensity
+uniform float pitch; // Range [0, 1], representing the pitch intensity
+
+varying vec3 vNormal;
+
+void main() {
+  // Define base colors
+  vec3 color1 = vec3(1.0, 1.0, 0.0); // Red
+  vec3 color2 = vec3(0.0, 1.0, 0.0); // Green
+  vec3 color3 = vec3(2.0, 0.0, 1.0); // Blue
+
+  // Mix colors based on time
+  float timeFactor = 0.5 + 0.5 * sin(time);
+  vec3 mixedColor = mix(color1, color2, timeFactor); // Oscillate between color1 and color2
+
+  // Modify the mixed color based on beat intensity
+  mixedColor += beat * color3; // Add blue color based on beat intensity
+
+  // Simulate light effect based on pitch intensity
+  float lightIntensity = 0.5 + 0.5 * sin(pitch * time);
+  mixedColor *= lightIntensity*0.1;
+
+  // Set the alpha channel to 1.0
+  gl_FragColor = vec4(mixedColor, 1.0);
+}
+
+
 `;
