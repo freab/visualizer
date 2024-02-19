@@ -151,13 +151,13 @@ void main() {
 
   // Adjust frequency and strength based on your uniforms
   float ufrequency = 1.0 ;
-  float ustrength =  0.7;
+  float ustrength = 0.7;
 
   // Calculate Perlin noise strength
-  float perlinStrength = perlin4d(vec4(position * ufrequency,)) * ustrength;
+  // float perlinStrength = perlin4d(vec4(position * ufrequency)) * ustrength;
 
   // Update position based on Perlin noise
-  newPosition += normal * perlinStrength ;
+  newPosition += normal ;
 
   // Transformations
   vec4 modelPosition = modelMatrix * vec4(newPosition, 1.0);

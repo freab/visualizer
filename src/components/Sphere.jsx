@@ -116,11 +116,11 @@ export function Sphere({ selectedSong, setSelectedSong }) {
         audioAnalyzerRef.current.frequencyBinCount
       );
 
-      // meshRef.current.scale.set(
-      //   1 + averageFrequency / 200,
-      //   1 + averageFrequency / 200,
-      //   1 + averageFrequency / 200
-      // );
+      meshRef.current.scale.set(
+        0.1 + beat / 200,
+        0.1 + beat / 200,
+        0.1 + beat / 200
+      );
 
       // Update shader material uniforms
       if (meshRef.current.material.uniforms) {
@@ -203,8 +203,8 @@ export function Sphere({ selectedSong, setSelectedSong }) {
         receiveShadow
         geometry={new SphereGeometry(1, 32, 32)}
         material={new ShaderMaterial()}
-        position={[0.1, 1.2, 0.5]}
-        scale={0.3}
+        position={[0.1, 1.2, -0.1]}
+        scale={0.001}
       />
 
       {showModal && (
