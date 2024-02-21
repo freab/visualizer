@@ -28,11 +28,11 @@ float gavoronoi3(in vec2 p)
 {    
     vec2 ip = floor(p);
     vec2 fp = fract(p);
-    float f = 2.*PI;//frequency
-    float v = 0.6;//cell variability <1.
+    float f =3.*PI;//frequency
+    float v = 1.0;//cell variability <1.
     float dv = 0.0;//direction variability <1.
-    vec2 dir = m + beat* 0.03 + cos(time);//vec2(.7,.7);
-    float va = 1.0;
+    vec2 dir = m + pitch* 0.003 + sin(time);//vec2(.7,.7);
+    float va = 1.;
    	float wt = 0.0 ;
     for (int i=-1; i<=1; i++) 
 	for (int j=-1; j<=1; j++) 

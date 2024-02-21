@@ -42,8 +42,8 @@ void main() {
     mainColor += vec3(0.1);  
 
     ColorStop colors[4] = ColorStop[](
-        ColorStop(vec3(0, 0.5, 0), beat),    // Green
-        ColorStop(vec3(1, 1, 0), pitch*0.001),      // Yellow
+        ColorStop(vec3(0, 0.5, 0), 1.0),    // Green
+        ColorStop(vec3(0, 1, 1), beat*0.0001),      // Yellow
         ColorStop(mainColor, 0.1),
         ColorStop(vec3(0.7, 0, 0), 1.0)      // Red
     );
