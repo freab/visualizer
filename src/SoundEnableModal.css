@@ -1,6 +1,8 @@
 /* SoundEnableModal.css */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 .sound-modal {
+  font-family: "Lexend", sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,7 +15,7 @@
 }
 
 .modal-content {
-  background-color: #fff;
+  background-color: #ffffffbb;
   padding: 50px;
   border-radius: 10px;
   text-align: center;
@@ -22,11 +24,15 @@
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
+  backdrop-filter: blur(10px); /* Add this line */
+  -webkit-backdrop-filter: blur(10px); /* Add this line for better compatibility */
 }
 
 .modal-title {
   color: #333;
-  font-size: 1.5em;
+  font-weight: 600;
+  white-space: nowrap;
+  font-size: 1.9em;
   margin-bottom: 10px;
 }
 
@@ -36,7 +42,13 @@
 }
 
 .enable-button {
-  background-color: #4caf50;
+  background-color: #3a5a40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap : 10px;
+  font-family: "Lexend", sans-serif;
+  white-space: nowrap;
   color: #fff;
   padding: 10px 60px;
   font-size: 1em;
@@ -47,5 +59,5 @@
 }
 
 .enable-button:hover {
-  background-color: #45a049;
+  background-color: #588157;
 }
