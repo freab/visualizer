@@ -67,6 +67,8 @@ function App() {
         />
         <Suspense fallback={null}>
           <Rophnan1 />
+        </Suspense>
+        <Suspense fallback={null}>
           <Sphere
             selectedSong={selectedSong}
             setSelectedSong={setSelectedSong}
