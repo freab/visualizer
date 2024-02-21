@@ -23,7 +23,8 @@ function App() {
     "ROPHNAN-KING-KUT-Ft-Tom-Beats.m4a"
   );
 
-  // Define ambientLight and pointLight using useRef
+  const songs = ["ROPHNAN-KING-KUT-Ft-Tom-Beats.m4a", "SHEGIYE _ ሸግዬ .mp3"];
+
   const ambientLight = useRef();
   const pointLight = useRef();
 
@@ -69,6 +70,7 @@ function App() {
           <Sphere
             selectedSong={selectedSong}
             setSelectedSong={setSelectedSong}
+            songs={songs}
           />
         </Suspense>
 

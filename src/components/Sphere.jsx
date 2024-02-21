@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { SphereGeometry } from "three";
-import { Html, Wireframe } from "@react-three/drei";
+import { Html } from "@react-three/drei";
 import SoundEnableModal from "./SoundEnableModal";
 import { shaderMaterial, Text } from "@react-three/drei";
 import fragment from "./shaders/fragment.glsl";
@@ -15,13 +15,12 @@ const ShaderMaterial = shaderMaterial(
     beat: { value: 0.0 },
     amplitude: { value: 0.0 },
     pitch: { value: 0.0 },
-    // wireframe: true,
   },
   vertex,
   fragment
 );
 
-export function Sphere({ selectedSong, setSelectedSong }) {
+export function Sphere({ selectedSong, setSelectedSong, songs }) {
   const meshRef = useRef();
   const audioRef = useRef();
   const audioAnalyzerRef = useRef();
@@ -31,10 +30,18 @@ export function Sphere({ selectedSong, setSelectedSong }) {
   const [text, setText] = useState("KING KUT");
   const [pauseButton, setPauseButton] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [songs, setSongs] = useState([
-    "ROPHNAN-KING-KUT-Ft-Tom-Beats.m4a",
-    "SHEGIYE _ ሸግዬ .mp3",
-  ]);
+
+  const buttonStyle = {
+    backgroundColor: "#1DB954",
+    color: "#fff",
+    padding: "12px 16px",
+    borderRadius: "4px",
+    border: "none",
+    cursor: "pointer",
+    fontFamily: "inherit",
+    fontSize: "14px",
+    fontWeight: "bold",
+  };
 
   const handlePlayPause = () => {
     const playPromise = isPlaying
@@ -88,8 +95,10 @@ export function Sphere({ selectedSong, setSelectedSong }) {
       }
 
       return () => {
-        audioElement.pause();
-        audioElement.currentTime = 0;
+        if (audioElement) {
+          audioElement.pause();
+          audioElement.currentTime = 0;
+        }
         analyzer.disconnect();
         source.disconnect();
         audioContext.close();
@@ -136,7 +145,6 @@ export function Sphere({ selectedSong, setSelectedSong }) {
       }
 
       // Update confetti when the conditions are met
-      // Update confetti when the conditions are met
       if (amplitude > 20 && averageFrequency > 60) {
         setShowConfetti(true);
       } else {
@@ -165,7 +173,6 @@ export function Sphere({ selectedSong, setSelectedSong }) {
   };
 
   function getPitch(dataArray, binCount) {
-    // Use the index of the maximum value as the pitch
     const maxIndex = dataArray.indexOf(Math.max(...dataArray));
     const frequency =
       ((maxIndex / binCount) * audioAnalyzerRef.current.context.sampleRate) / 2;
@@ -180,30 +187,14 @@ export function Sphere({ selectedSong, setSelectedSong }) {
           value={selectedSong}
           onChange={handleSongChange}
           style={{
-            backgroundColor: "#1DB954",
-            color: "#fff",
+            ...buttonStyle,
             padding: "8px",
             borderRadius: "4px",
-            border: "none",
-            cursor: "pointer",
             outline: "none",
-            fontFamily: "inherit",
-            fontSize: "14px",
-            fontWeight: "bold",
           }}
         >
           {songs.map((song) => (
-            <option
-              key={song}
-              value={song}
-              style={{
-                backgroundColor: "#1DB954",
-                color: "#fff",
-                fontFamily: "inherit",
-                fontSize: "14px",
-                fontWeight: "bold",
-              }}
-            >
+            <option key={song} value={song} style={buttonStyle}>
               {song}
             </option>
           ))}
@@ -258,51 +249,15 @@ export function Sphere({ selectedSong, setSelectedSong }) {
             gap: "10px",
           }}
         >
-          <button
-            onClick={handlePlayPause}
-            style={{
-              backgroundColor: "#1DB954",
-              color: "#fff",
-              padding: "12px 16px",
-              borderRadius: "4px",
-              border: "none",
-              cursor: "pointer",
-              fontFamily: "inherit",
-              fontSize: "14px",
-              fontWeight: "bold",
-            }}
-          >
+          <button onClick={handlePlayPause} style={buttonStyle}>
             {isPlaying ? "Pause" : "Play"}
           </button>
-          <button
-            onClick={() => audioRef.current.play()}
-            style={{
-              backgroundColor: "#1DB954",
-              color: "#fff",
-              padding: "12px 16px",
-              borderRadius: "4px",
-              border: "none",
-              cursor: "pointer",
-              fontFamily: "inherit",
-              fontSize: "14px",
-              fontWeight: "bold",
-            }}
-          >
+          <button onClick={() => audioRef.current.play()} style={buttonStyle}>
             Play
           </button>
           <button
             onClick={() => (audioRef.current.currentTime = 0)}
-            style={{
-              backgroundColor: "#1DB954",
-              color: "#fff",
-              padding: "12px 16px",
-              borderRadius: "4px",
-              border: "none",
-              cursor: "pointer",
-              fontFamily: "inherit",
-              fontSize: "14px",
-              fontWeight: "bold",
-            }}
+            style={buttonStyle}
           >
             Replay
           </button>
