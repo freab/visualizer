@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { useControls } from "leva";
 import { Sphere } from "./components/Sphere";
 import { Rophnan1 } from "./components/Rophnan1";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   const {
@@ -55,7 +56,7 @@ function App() {
           intensity={ambientLightIntensity}
           color={ambientLightColor}
         />
-
+        <Analytics />
         <pointLight
           ref={pointLight}
           position={[10, -10, 10]}
