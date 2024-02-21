@@ -4,7 +4,9 @@ import { SphereGeometry } from "three";
 import { Html, Wireframe } from "@react-three/drei";
 import SoundEnableModal from "./SoundEnableModal";
 import { shaderMaterial, Text } from "@react-three/drei";
-import { vertexShader, fragmentShader } from "./shaders";
+import fragment from "./shaders/fragment.glsl";
+import vertex from "./shaders/vertex.glsl";
+import ExplosionConfetti from "./confeti";
 
 const ShaderMaterial = shaderMaterial(
   {
@@ -13,10 +15,10 @@ const ShaderMaterial = shaderMaterial(
     beat: { value: 0.0 },
     amplitude: { value: 0.0 },
     pitch: { value: 0.0 },
-    wireframe: true,
+    // wireframe: true,
   },
-  vertexShader,
-  fragmentShader
+  vertex,
+  fragment
 );
 
 export function Sphere({ selectedSong, setSelectedSong }) {
@@ -28,6 +30,7 @@ export function Sphere({ selectedSong, setSelectedSong }) {
   const [showModal, setShowModal] = useState(true);
   const [text, setText] = useState("KING KUT");
   const [pauseButton, setPauseButton] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
   const [songs, setSongs] = useState([
     "ROPHNAN-KING-KUT-Ft-Tom-Beats.m4a",
     "SHEGIYE _ ሸግዬ .mp3",
@@ -117,9 +120,9 @@ export function Sphere({ selectedSong, setSelectedSong }) {
       );
 
       meshRef.current.scale.set(
-        0.1 + beat / 200,
-        0.1 + beat / 200,
-        0.1 + beat / 200
+        1.1 + beat / 200,
+        1.1 + beat / 200,
+        1.1 + beat / 200
       );
 
       // Update shader material uniforms
@@ -131,6 +134,16 @@ export function Sphere({ selectedSong, setSelectedSong }) {
         meshRef.current.material.uniforms.amplitude.value = amplitude;
         meshRef.current.material.uniforms.pitch.value = pitch;
       }
+
+      // Update confetti when the conditions are met
+      // Update confetti when the conditions are met
+      if (amplitude > 20 && averageFrequency > 60) {
+        setShowConfetti(true);
+      } else {
+        setShowConfetti(false);
+      }
+    } else {
+      setShowConfetti(false);
     }
   });
 
@@ -162,7 +175,7 @@ export function Sphere({ selectedSong, setSelectedSong }) {
 
   return (
     <group>
-      <Html position={[-1.3, -2, 0]}>
+      <Html position={[-1.5, -2, 0]}>
         <select
           value={selectedSong}
           onChange={handleSongChange}
@@ -204,7 +217,7 @@ export function Sphere({ selectedSong, setSelectedSong }) {
         geometry={new SphereGeometry(1, 32, 32)}
         material={new ShaderMaterial()}
         position={[0.1, 1.2, -0.1]}
-        scale={0.001}
+        scale={1}
       />
 
       {showModal && (
@@ -224,8 +237,18 @@ export function Sphere({ selectedSong, setSelectedSong }) {
       >
         {text}
       </Text>
+      {showConfetti && (
+        <ExplosionConfetti
+          rate={4}
+          amount={50}
+          fallingHeight={9}
+          enableShadows
+          isExploding
+          colors={["yellow", "white", "red"]}
+        />
+      )}
 
-      <Html position={[-1, -3, 0]}>
+      <Html position={[-1.5, -3, 0]}>
         <div
           style={{
             position: "absolute",

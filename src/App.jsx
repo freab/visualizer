@@ -44,8 +44,11 @@ function App() {
   return (
     <>
       <Canvas shadows>
-        <OrbitControls />
-        <color attach="background" args={["#000000"]} />
+        <OrbitControls
+          enableZoom={false}
+          minPolarAngle={Math.PI / 2}
+          maxPolarAngle={Math.PI / 2}
+        />
         <ambientLight
           ref={ambientLight}
           position={[0, 0, 100]}

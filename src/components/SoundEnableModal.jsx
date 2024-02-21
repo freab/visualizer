@@ -1,7 +1,8 @@
+// SoundEnableModal.jsx
 import React from "react";
 import "../SoundEnableModal.css";
 
-const SoundEnableModal = ({ onEnable }) => {
+const SoundEnableModal = ({ onEnable, onPlayPause, isPlaying }) => {
   const handleEnable = () => {
     onEnable();
   };
@@ -16,6 +17,14 @@ const SoundEnableModal = ({ onEnable }) => {
         <button onClick={handleEnable} className="enable-button">
           Enable Sound
         </button>
+
+        {isPlaying !== undefined && (
+          <div className="playback-controls">
+            <button onClick={onPlayPause}>
+              {isPlaying ? "Pause" : "Play"}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
