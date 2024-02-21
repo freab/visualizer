@@ -7,6 +7,7 @@ import { shaderMaterial, Text } from "@react-three/drei";
 import fragment from "./shaders/fragment.glsl";
 import vertex from "./shaders/vertex.glsl";
 import ExplosionConfetti from "./confeti";
+import { Play, Pause , Repeat} from "phosphor-react";
 
 const ShaderMaterial = shaderMaterial(
   {
@@ -32,15 +33,21 @@ export function Sphere({ selectedSong, setSelectedSong, songs }) {
   const [showConfetti, setShowConfetti] = useState(false);
 
   const buttonStyle = {
-    backgroundColor: "#1DB954",
-    color: "#fff",
-    padding: "12px 16px",
+    backgroundColor: "#463f3a",
+    color: "#f4f3ee",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    gap : "0.6em",
     borderRadius: "4px",
-    border: "none",
+    border: "1px solid #f4f3ee",
     cursor: "pointer",
-    fontFamily: "inherit",
-    fontSize: "14px",
-    fontWeight: "bold",
+    fontFamily: "Lexend",
+    fontWeight: "light",
+    fontSize: "16px",
+    padding: "4px 8px",
+    borderRadius: "4px",
+    outline: "none",
   };
 
   const handlePlayPause = () => {
@@ -182,24 +189,6 @@ export function Sphere({ selectedSong, setSelectedSong, songs }) {
 
   return (
     <group>
-      <Html position={[-1.5, -2, 0]}>
-        <select
-          value={selectedSong}
-          onChange={handleSongChange}
-          style={{
-            ...buttonStyle,
-            padding: "8px",
-            borderRadius: "4px",
-            outline: "none",
-          }}
-        >
-          {songs.map((song) => (
-            <option key={song} value={song} style={buttonStyle}>
-              {song}
-            </option>
-          ))}
-        </select>
-      </Html>
       <mesh
         ref={meshRef}
         name="Sphere"
@@ -212,7 +201,7 @@ export function Sphere({ selectedSong, setSelectedSong, songs }) {
       />
 
       {showModal && (
-        <Html position={[0, 0, 0]}>
+        <Html position={[0, 0.3, 0]}>
           <SoundEnableModal
             onEnable={handleEnableSound}
             onClose={() => setShowModal(false)}
@@ -239,29 +228,60 @@ export function Sphere({ selectedSong, setSelectedSong, songs }) {
         />
       )}
 
-      <Html position={[-1.5, -3, 0]}>
+      <Html
+        position={[-1.5, -1.5, -1.5]}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "0.6em",
+          justifyContent: "between",
+          width: "24em",
+          height: "4em",
+          padding: "10px",
+        }}
+      >
         <div
           style={{
-            position: "absolute",
-            bottom: 10,
-            left: 10,
+            width: "100%",
             display: "flex",
-            gap: "10px",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.6em",
           }}
         >
-          <button onClick={handlePlayPause} style={buttonStyle}>
+          <button onClick={handlePlayPause} style={{ ...buttonStyle }}>
+            <Pause size={20} weight="fill"  />
             {isPlaying ? "Pause" : "Play"}
           </button>
           <button onClick={() => audioRef.current.play()} style={buttonStyle}>
+            <Play size={20} weight="fill"  />
             Play
           </button>
           <button
             onClick={() => (audioRef.current.currentTime = 0)}
             style={buttonStyle}
           >
+            <Repeat size={20} weight="fill" />
             Replay
           </button>
         </div>
+        <select
+          value={selectedSong}
+          onChange={handleSongChange}
+          style={{
+            ...buttonStyle,
+          }}
+        >
+          {songs.map((song) => (
+            <option key={song} value={song} style={{ 
+              ...buttonStyle,
+              fontFamily: "Lexend"}}>
+              {song}
+            </option>
+          ))}
+        </select>
       </Html>
     </group>
   );
