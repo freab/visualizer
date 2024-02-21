@@ -29,7 +29,7 @@ function App() {
   const pointLight = useRef();
 
   useEffect(() => {
-    // Change ambient light and point light colors based on selected song
+    // Change ambient light and point light colors based on the selected song
     if (ambientLight.current && pointLight.current) {
       if (selectedSong === "SHEGIYE _ ሸግዬ .mp3") {
         // Update ambient light color directly
@@ -44,7 +44,7 @@ function App() {
   }, [selectedSong]);
 
   return (
-    <>
+    <Suspense fallback={<Loader />}>
       <Canvas shadows>
         <OrbitControls
           enableZoom={false}
@@ -79,7 +79,7 @@ function App() {
         <Stats />
       </Canvas>
       <Loader />
-    </>
+    </Suspense>
   );
 }
 
